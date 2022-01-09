@@ -3,6 +3,7 @@ import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
 // Дополнительный импорт стилей
 import 'notiflix/dist/notiflix-3.2.2.min.css';
+import { fetchCountries } from './fetchCountries';
 
 const DEBOUNCE_DELAY = 300;
 
@@ -21,13 +22,12 @@ function onInput(evt) {
         ref.countryInfo.innerHTML = "";
         return;
     }
-    fetch(`https://restcountries.com/v3.1/name/${searchValue}`)
-        .then(response => response.json()
-            .then(data => show(data))
-            .catch(reject => {
-                Notiflix.Notify.warning('Oops, there is no country with that name');
-                return
-            }))
+    fetchCountries(searchValue)
+        .then(data => show(data))
+        .catch(reject => {
+            Notiflix.Notify.warning('Oops, there is no country with that name');
+            return
+        })
 }
 
 function show(data) {

@@ -581,7 +581,18 @@ var global = arguments[3];
         module.hot.dispose(reloadCSS);
         module.hot.accept(reloadCSS);
       
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"fetchCountries.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchCountries = fetchCountries;
+
+function fetchCountries(searchValue) {
+  return fetch(`https://restcountries.com/v3.1/name/${searchValue}`).then(response => response.json());
+}
+},{}],"index.js":[function(require,module,exports) {
 "use strict";
 
 require("./css/styles.css");
@@ -591,6 +602,8 @@ var _lodash = _interopRequireDefault(require("lodash.debounce"));
 var _notiflix = _interopRequireDefault(require("notiflix"));
 
 require("notiflix/dist/notiflix-3.2.2.min.css");
+
+var _fetchCountries = require("./fetchCountries");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -612,11 +625,11 @@ function onInput(evt) {
     return;
   }
 
-  fetch(`https://restcountries.com/v3.1/name/${searchValue}`).then(response => response.json().then(data => show(data)).catch(reject => {
+  (0, _fetchCountries.fetchCountries)(searchValue).then(data => show(data)).catch(reject => {
     _notiflix.default.Notify.warning('Oops, there is no country with that name');
 
     return;
-  }));
+  });
 }
 
 function show(data) {
@@ -662,7 +675,7 @@ function markupInfo(data) {
         <p><b>Population:</b> ${population}</p>
         <p><b>Languages:</b> ${Object.values(languages).join(', ')}</p>`).join("");
 }
-},{"./css/styles.css":"css/styles.css","lodash.debounce":"../node_modules/lodash.debounce/index.js","notiflix":"../node_modules/notiflix/dist/notiflix-aio-3.2.2.min.js","notiflix/dist/notiflix-3.2.2.min.css":"../node_modules/notiflix/dist/notiflix-3.2.2.min.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./css/styles.css":"css/styles.css","lodash.debounce":"../node_modules/lodash.debounce/index.js","notiflix":"../node_modules/notiflix/dist/notiflix-aio-3.2.2.min.js","notiflix/dist/notiflix-3.2.2.min.css":"../node_modules/notiflix/dist/notiflix-3.2.2.min.css","./fetchCountries":"fetchCountries.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
