@@ -53,7 +53,8 @@ function renderCountryInfo(data) {
     ref.countryInfo.innerHTML = markupInfo(data);
 }
 function markupInfo(data) {
-    return data.map(({flags, name, capital, population, languages}) => `<image src="${flags.svg}" class="iconFlag" width="40" height="25"/>
+    return data.map(({ flags, name, capital, population, languages }) =>
+        `<image src="${flags.svg}" class="iconFlag" width="40" height="25"/>
          <h2>${name.official}</h2>
         <p><b>Capital:</b> ${capital}</p>
         <p><b>Population:</b> ${population}</p>
